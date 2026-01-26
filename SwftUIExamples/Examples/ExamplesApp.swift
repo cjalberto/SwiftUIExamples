@@ -27,6 +27,37 @@ struct ExamplesApp: App {
                     }
                     .padding(.horizontal)
                     
+                    // BiomarkerMiniChartView with custom values
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Biomarker Mini Chart")
+                            .font(.headline)
+                        
+                        BiomarkerMiniChartView(
+                            data: BiomarkerChartData(
+                                dataPoints: {
+                                    let calendar = Calendar.current
+                                    let today = Date()
+                                    let values = [0.16563013854880626, 0.23783671914867058, 0.14522232426998896, 0.18596883167120984, 0.15014716885434862, 0.14861950364023305, 0.21701672112913406, 0.35]
+                                    
+                                    // Map values to dates from oldest to newest
+                                    // Index 0 gets the oldest date, last index gets today
+                                    return values.enumerated().map { index, value in
+                                        BiomarkerDataPoint(
+                                            value: value,
+                                            date: calendar.date(byAdding: .day, value: -(values.count - 1 - index) * 7, to: today) ?? today
+                                        )
+                                    }
+                                }(),
+                                limitLowValue: 0.0,
+                                limitHighValue: 0.3,
+                                trend: .up
+                            ),
+                            style: .default
+                        )
+                        .frame(width: 200, height: 60)
+                    }
+                    .padding(.horizontal)
+                    
                     PillarSummaryCard(
                         title: "Core Vital Functions",
                         icon: "icEatingHabits",

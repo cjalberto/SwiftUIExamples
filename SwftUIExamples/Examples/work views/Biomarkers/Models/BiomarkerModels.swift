@@ -58,37 +58,70 @@ public struct BiomarkerDataPoint: Identifiable, Codable {
 public struct Biomarker: Identifiable, Codable {
     public let id: UUID
     public let name: String
-    public let value: Double
     public let unit: String
-    public let date: Date
-    public let trend: BiomarkerTrend
     public let category: BiomarkerCategory
     public let historicalData: [BiomarkerDataPoint]
-    public let visibleMin: Double?
-    public let visibleMax: Double?
+    public let limitLowValue: Double?
+    public let limitHighValue: Double?
+    public let thresholdVariation: Double
+    
+    public var date: Date {
+        historicalData.last?.date ?? Date()
+    }
+    
+    public var value: Double {
+        historicalData.last?.value ?? 0
+    }
+    
+    public var trend: BiomarkerTrend {
+        guard historicalData.count >= 2 else {
+            return .neutral
+        }
+        
+        let lastValue = historicalData.last?.value ?? 0
+        let previousValue = historicalData[historicalData.count - 2].value
+        let difference = lastValue - previousValue
+        
+        // If the difference is within the threshold, it's neutral
+        if abs(difference) <= thresholdVariation {
+            return .neutral
+        }
+        
+        return difference > 0 ? .up : .down
+    }
+    
+    public var statusColor: Color {
+        guard let low = limitLowValue, let high = limitHighValue else {
+            return Color.gray
+        }
+        
+        let isInRange = (low..<high).contains(value)
+        let color = isInRange ? Color(red: 1/255, green: 132/255, blue: 64/255) : Color.orange
+        
+        // Debug output
+        print("🔍 \(name): value=\(value), range=[\(low)-\(high)], inRange=\(isInRange), historic=\(historicalData.map{$0.value}), color=\(isInRange ? "GREEN" : "ORANGE")")
+        
+        return color
+    }
     
     public init(
         id: UUID = UUID(),
         name: String,
-        value: Double,
         unit: String,
-        date: Date,
-        trend: BiomarkerTrend,
         category: BiomarkerCategory,
         historicalData: [BiomarkerDataPoint] = [],
-        visibleMin: Double? = nil,
-        visibleMax: Double? = nil
+        limitLowValue: Double? = nil,
+        limitHighValue: Double? = nil,
+        thresholdVariation: Double = 0.0
     ) {
         self.id = id
         self.name = name
-        self.value = value
         self.unit = unit
-        self.date = date
-        self.trend = trend
         self.category = category
         self.historicalData = historicalData
-        self.visibleMin = visibleMin
-        self.visibleMax = visibleMax
+        self.limitLowValue = limitLowValue
+        self.limitHighValue = limitHighValue
+        self.thresholdVariation = thresholdVariation
     }
     
     // Formatted value with unit
