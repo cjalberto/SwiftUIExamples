@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4518679D2F0C230800685764 /* HealthScoreUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4518679C2F0C230800685764 /* HealthScoreUtilities.swift */; };
+		451AD2CB2EF47AFA000C7816 /* HealthMetricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD2C92EF47AFA000C7816 /* HealthMetricType.swift */; };
+		451AD2CC2EF47AFA000C7816 /* PillarSummaryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD2CA2EF47AFA000C7816 /* PillarSummaryCard.swift */; };
+		451AD2CE2EF47CA2000C7816 /* OverallHealthCircularScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD2CD2EF47CA2000C7816 /* OverallHealthCircularScoreView.swift */; };
+		451AD2D52EF996B3000C7816 /* OverallHealthScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD2D42EF996B1000C7816 /* OverallHealthScoreView.swift */; };
+		452AA67D2F266E4C005B3600 /* BiomarkersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA67A2F266E4C005B3600 /* BiomarkersView.swift */; };
+		452AA67E2F266E4C005B3600 /* BiomarkerValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6782F266E4C005B3600 /* BiomarkerValueView.swift */; };
+		452AA67F2F266E4C005B3600 /* BiomarkerMiniChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6762F266E4C005B3600 /* BiomarkerMiniChartView.swift */; };
+		452AA6802F266E4C005B3600 /* BiomarkersFiltersBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6772F266E4C005B3600 /* BiomarkersFiltersBar.swift */; };
+		452AA6812F266E4C005B3600 /* BiomarkerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6712F266E4C005B3600 /* BiomarkerModels.swift */; };
+		452AA6822F266E4C005B3600 /* BiomarkersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6732F266E4C005B3600 /* BiomarkersViewModel.swift */; };
+		452AA6832F266E4C005B3600 /* BiomarkerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AA6752F266E4C005B3600 /* BiomarkerCell.swift */; };
+		452AB08F2F26CE1D005B3600 /* SearchFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AB08E2F26CE1D005B3600 /* SearchFieldView.swift */; };
+		452AB0912F26CE65005B3600 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AB0902F26CE65005B3600 /* Theme.swift */; };
+		452AB0952F26CF4D005B3600 /* StyleModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452AB0942F26CF4D005B3600 /* StyleModifiers.swift */; };
 		453BD50F2AED7AB80051BD21 /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453BD50E2AED7AB80051BD21 /* ExamplesApp.swift */; };
 		453BD5112AED7AB80051BD21 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453BD5102AED7AB80051BD21 /* ContentView.swift */; };
 		453BD5132AED7ABA0051BD21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 453BD5122AED7ABA0051BD21 /* Assets.xcassets */; };
@@ -40,6 +55,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4518679C2F0C230800685764 /* HealthScoreUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthScoreUtilities.swift; sourceTree = "<group>"; };
+		451AD2C92EF47AFA000C7816 /* HealthMetricType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetricType.swift; sourceTree = "<group>"; };
+		451AD2CA2EF47AFA000C7816 /* PillarSummaryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillarSummaryCard.swift; sourceTree = "<group>"; };
+		451AD2CD2EF47CA2000C7816 /* OverallHealthCircularScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallHealthCircularScoreView.swift; sourceTree = "<group>"; };
+		451AD2D42EF996B1000C7816 /* OverallHealthScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallHealthScoreView.swift; sourceTree = "<group>"; };
+		452AA6712F266E4C005B3600 /* BiomarkerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkerModels.swift; sourceTree = "<group>"; };
+		452AA6732F266E4C005B3600 /* BiomarkersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkersViewModel.swift; sourceTree = "<group>"; };
+		452AA6752F266E4C005B3600 /* BiomarkerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkerCell.swift; sourceTree = "<group>"; };
+		452AA6762F266E4C005B3600 /* BiomarkerMiniChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkerMiniChartView.swift; sourceTree = "<group>"; };
+		452AA6772F266E4C005B3600 /* BiomarkersFiltersBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkersFiltersBar.swift; sourceTree = "<group>"; };
+		452AA6782F266E4C005B3600 /* BiomarkerValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkerValueView.swift; sourceTree = "<group>"; };
+		452AA67A2F266E4C005B3600 /* BiomarkersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiomarkersView.swift; sourceTree = "<group>"; };
+		452AB08E2F26CE1D005B3600 /* SearchFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFieldView.swift; sourceTree = "<group>"; };
+		452AB0902F26CE65005B3600 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		452AB0942F26CF4D005B3600 /* StyleModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleModifiers.swift; sourceTree = "<group>"; };
 		453BD50B2AED7AB80051BD21 /* SwiftUIExamplesComponents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUIExamplesComponents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		453BD50E2AED7AB80051BD21 /* ExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesApp.swift; sourceTree = "<group>"; };
 		453BD5102AED7AB80051BD21 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -84,6 +114,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		452AA6722F266E4C005B3600 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				452AA6712F266E4C005B3600 /* BiomarkerModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		452AA6742F266E4C005B3600 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				452AA6732F266E4C005B3600 /* BiomarkersViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		452AA6792F266E4C005B3600 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				452AA6752F266E4C005B3600 /* BiomarkerCell.swift */,
+				452AA6762F266E4C005B3600 /* BiomarkerMiniChartView.swift */,
+				452AA6772F266E4C005B3600 /* BiomarkersFiltersBar.swift */,
+				452AA6782F266E4C005B3600 /* BiomarkerValueView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		452AA67B2F266E4C005B3600 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				452AA6792F266E4C005B3600 /* Components */,
+				452AA67A2F266E4C005B3600 /* BiomarkersView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		452AA67C2F266E4C005B3600 /* Biomarkers */ = {
+			isa = PBXGroup;
+			children = (
+				452AA6722F266E4C005B3600 /* Models */,
+				452AA6742F266E4C005B3600 /* ViewModels */,
+				452AA67B2F266E4C005B3600 /* Views */,
+			);
+			path = Biomarkers;
+			sourceTree = "<group>";
+		};
+		452AB0932F26CF2B005B3600 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				452AB0942F26CF4D005B3600 /* StyleModifiers.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		453BD5022AED7AB80051BD21 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +187,7 @@
 		453BD50D2AED7AB80051BD21 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				454F16A62EF2256F001573DE /* work views */,
 				45C8B3542B099B3E0065BF01 /* GeometryReader.swift */,
 				45C8B3522B0994610065BF01 /* SwipeActionsLists.swift */,
 				45C8B3502B0932960065BF01 /* SceneStorage.swift */,
@@ -143,6 +228,30 @@
 				453BD5152AED7ABA0051BD21 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		454694E92EFA29BA0025F4F0 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				452AB08E2F26CE1D005B3600 /* SearchFieldView.swift */,
+				451AD2D42EF996B1000C7816 /* OverallHealthScoreView.swift */,
+				451AD2CD2EF47CA2000C7816 /* OverallHealthCircularScoreView.swift */,
+				451AD2CA2EF47AFA000C7816 /* PillarSummaryCard.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		454F16A62EF2256F001573DE /* work views */ = {
+			isa = PBXGroup;
+			children = (
+				452AB0932F26CF2B005B3600 /* Modifiers */,
+				452AA67C2F266E4C005B3600 /* Biomarkers */,
+				454694E92EFA29BA0025F4F0 /* views */,
+				451AD2C92EF47AFA000C7816 /* HealthMetricType.swift */,
+				4518679C2F0C230800685764 /* HealthScoreUtilities.swift */,
+				452AB0902F26CE65005B3600 /* Theme.swift */,
+			);
+			path = "work views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,21 +336,36 @@
 				453BD5112AED7AB80051BD21 /* ContentView.swift in Sources */,
 				45619AAA2B030AF0000CC5C5 /* Gestures.swift in Sources */,
 				459F6C2D2AF5B67800D22B88 /* ColorPicker.swift in Sources */,
+				451AD2CB2EF47AFA000C7816 /* HealthMetricType.swift in Sources */,
+				451AD2CC2EF47AFA000C7816 /* PillarSummaryCard.swift in Sources */,
 				45C8B3532B0994610065BF01 /* SwipeActionsLists.swift in Sources */,
 				45C8B3512B0932960065BF01 /* SceneStorage.swift in Sources */,
+				451AD2CE2EF47CA2000C7816 /* OverallHealthCircularScoreView.swift in Sources */,
 				45C8B3552B099B3E0065BF01 /* GeometryReader.swift in Sources */,
 				453BD50F2AED7AB80051BD21 /* ExamplesApp.swift in Sources */,
 				45619AA82B0305E5000CC5C5 /* ContextMenu.swift in Sources */,
+				452AB08F2F26CE1D005B3600 /* SearchFieldView.swift in Sources */,
+				451AD2D52EF996B3000C7816 /* OverallHealthScoreView.swift in Sources */,
 				45C8B34F2B07B2430065BF01 /* AppStorage.swift in Sources */,
 				459F6C2F2AF5C42A00D22B88 /* ProgressView.swift in Sources */,
 				453BD51F2AF00D4A0051BD21 /* Text.swift in Sources */,
 				459F6C312AF9558A00D22B88 /* Link.swift in Sources */,
 				45619AA02B0130D5000CC5C5 /* NavegationView.swift in Sources */,
+				452AB0912F26CE65005B3600 /* Theme.swift in Sources */,
+				452AB0952F26CF4D005B3600 /* StyleModifiers.swift in Sources */,
 				459F6C372AF976AD00D22B88 /* LazyGrid.swift in Sources */,
 				459F6C2B2AF59A4D00D22B88 /* DatePicker.swift in Sources */,
+				452AA67D2F266E4C005B3600 /* BiomarkersView.swift in Sources */,
+				452AA67E2F266E4C005B3600 /* BiomarkerValueView.swift in Sources */,
+				452AA67F2F266E4C005B3600 /* BiomarkerMiniChartView.swift in Sources */,
+				452AA6802F266E4C005B3600 /* BiomarkersFiltersBar.swift in Sources */,
+				452AA6812F266E4C005B3600 /* BiomarkerModels.swift in Sources */,
+				452AA6822F266E4C005B3600 /* BiomarkersViewModel.swift in Sources */,
+				452AA6832F266E4C005B3600 /* BiomarkerCell.swift in Sources */,
 				459F6C392AF989AF00D22B88 /* Form.swift in Sources */,
 				45619AA62B02CDEE000CC5C5 /* Alert.swift in Sources */,
 				459F6C352AF95FF000D22B88 /* Slider.swift in Sources */,
+				4518679D2F0C230800685764 /* HealthScoreUtilities.swift in Sources */,
 				45C8B3572B1BFA830065BF01 /* ModifierView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
