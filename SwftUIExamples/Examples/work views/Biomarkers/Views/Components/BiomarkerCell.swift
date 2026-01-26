@@ -30,11 +30,11 @@ public struct BiomarkerCell: View {
             BiomarkerMiniChartView(
                 data: BiomarkerChartData(
                     dataPoints: biomarker.historicalData,
-                    visibleMin: biomarker.visibleMin,
-                    visibleMax: biomarker.visibleMax,
+                    limitLowValue: biomarker.limitLowValue,
+                    limitHighValue: biomarker.limitHighValue,
                     trend: biomarker.trend
                 ),
-                style: .compact.with(lineColor: biomarker.trend.color)
+                style: .compact.with(lineColor: biomarker.statusColor)
             )
             .frame(width: 100, height: 43)
             
@@ -59,12 +59,12 @@ public struct BiomarkerCell: View {
     return BiomarkerCell(
         biomarker: Biomarker(
             name: "Alanina\naminotransferasa",
-            value: 48.0,
             unit: "IU/LO",
-            date: calendar.date(from: DateComponents(year: 2025, month: 9, day: 20)) ?? today,
-            trend: .up,
             category: .biochemicalAnalysis,
-            historicalData: Array(dataPoints)
+            historicalData: Array(dataPoints),
+            limitLowValue: 10,
+            limitHighValue: 40,
+            thresholdVariation: 2.0
         )
     )
 
@@ -83,12 +83,12 @@ public struct BiomarkerCell: View {
     return BiomarkerCell(
         biomarker: Biomarker(
             name: "Albúmina\nsuero",
-            value: 4.2,
             unit: "g/dL",
-            date: calendar.date(from: DateComponents(year: 2025, month: 9, day: 20)) ?? today,
-            trend: .down,
             category: .biochemicalAnalysis,
-            historicalData: Array(dataPoints)
+            historicalData: Array(dataPoints),
+            limitLowValue: 3.5,
+            limitHighValue: 5.5,
+            thresholdVariation: 0.2
         )
     )
 
@@ -111,36 +111,36 @@ public struct BiomarkerCell: View {
         BiomarkerCell(
             biomarker: Biomarker(
                 name: "Alanina\naminotransferasa",
-                value: 48.0,
                 unit: "IU/LO",
-                date: today,
-                trend: .up,
                 category: .biochemicalAnalysis,
-                historicalData: makeDataPoints()
+                historicalData: makeDataPoints(),
+                limitLowValue: 10,
+                limitHighValue: 40,
+                thresholdVariation: 2.0
             )
         )
         Divider().padding(.horizontal)
         BiomarkerCell(
             biomarker: Biomarker(
                 name: "Albúmina\nsuero",
-                value: 4.2,
                 unit: "g/dL",
-                date: today,
-                trend: .down,
                 category: .biochemicalAnalysis,
-                historicalData: makeDataPoints()
+                historicalData: makeDataPoints(),
+                limitLowValue: 3.5,
+                limitHighValue: 5.5,
+                thresholdVariation: 0.2
             )
         )
         Divider().padding(.horizontal)
         BiomarkerCell(
             biomarker: Biomarker(
                 name: "Bilirrubina\nIndirecta",
-                value: 0.2,
                 unit: "mg/dL",
-                date: today,
-                trend: .neutral,
                 category: .biochemicalAnalysis,
-                historicalData: makeDataPoints()
+                historicalData: makeDataPoints(),
+                limitLowValue: 0.2,
+                limitHighValue: 0.8,
+                thresholdVariation: 0.05
             )
         )
     }

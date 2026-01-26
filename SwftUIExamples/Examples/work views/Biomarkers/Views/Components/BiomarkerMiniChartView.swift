@@ -11,23 +11,23 @@ import Charts
 // MARK: - Chart Data Structure
 public struct BiomarkerChartData {
     public let dataPoints: [BiomarkerDataPoint]
-    public let visibleMin: Double?
-    public let visibleMax: Double?
+    public let limitLowValue: Double?
+    public let limitHighValue: Double?
     public let trend: BiomarkerTrend?
     
-    public init(dataPoints: [BiomarkerDataPoint], visibleMin: Double? = nil, visibleMax: Double? = nil, trend: BiomarkerTrend? = nil) {
+    public init(dataPoints: [BiomarkerDataPoint], limitLowValue: Double? = nil, limitHighValue: Double? = nil, trend: BiomarkerTrend? = nil) {
         self.dataPoints = dataPoints
-        self.visibleMin = visibleMin
-        self.visibleMax = visibleMax
+        self.limitLowValue = limitLowValue
+        self.limitHighValue = limitHighValue
         self.trend = trend
     }
     
     public var minValue: Double {
-        visibleMin ?? dataPoints.map(\.value).min() ?? 0
+        limitLowValue ?? dataPoints.map(\.value).min() ?? 0
     }
     
     public var maxValue: Double {
-        visibleMax ?? dataPoints.map(\.value).max() ?? 100
+        limitHighValue ?? dataPoints.map(\.value).max() ?? 100
     }
 }
 
