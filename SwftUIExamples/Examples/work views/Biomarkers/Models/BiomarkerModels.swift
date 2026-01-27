@@ -23,7 +23,7 @@ public enum BiomarkerTrend: String, Codable, CaseIterable {
     
     var color: Color {
         switch self {
-        case .up: return Color.orange
+        case .up: return Color(red: 1.0, green: 125.0 / 255.0, blue: 41.0 / 255.0)
         case .down: return Color(red: 1/255, green: 132/255, blue: 64/255)
         case .neutral: return Color.gray
         }
@@ -96,7 +96,7 @@ public struct Biomarker: Identifiable, Codable {
         }
         
         let isInRange = (low..<high).contains(value)
-        let color = isInRange ? Color(red: 1/255, green: 132/255, blue: 64/255) : Color.orange
+        let color = isInRange ? Color(red: 1/255, green: 132/255, blue: 64/255) : Color(red: 1.0, green: 125.0 / 255.0, blue: 41.0 / 255.0)
         
         // Debug output
         print("🔍 \(name): value=\(value), range=[\(low)-\(high)], inRange=\(isInRange), historic=\(historicalData.map{$0.value}), color=\(isInRange ? "GREEN" : "ORANGE")")
