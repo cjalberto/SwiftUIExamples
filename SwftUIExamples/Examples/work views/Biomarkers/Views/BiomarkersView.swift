@@ -12,6 +12,7 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
     @StateObject private var viewModel: ViewModel
     
     @State private var showFiltersSheet: Bool = false
+    @State private var showSourceSelector: Bool = false
     
     private let accentColor: Color
     
@@ -109,6 +110,22 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
             Text("Filters coming soon")
                 .presentationDetents([.medium])
         }
+        .sheet(isPresented: $showSourceSelector) {
+            SourceSelectorSheetView(
+                title: "Select source",
+                options: [
+                    SourceSelectorOption(icon: "doc", title: "Files") {
+                        print("Files selected")
+                    },
+                    SourceSelectorOption(icon: "photo", title: "Gallery") {
+                        print("Gallery selected")
+                    },
+                    SourceSelectorOption(icon: "camera", title: "Camera") {
+                        print("Camera selected")
+                    }
+                ]
+            )
+        }
     }
     
     private func sectionHeader(title: String) -> some View {
@@ -120,7 +137,7 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
     
     private var addMoreButton: some View {
         Button {
-            // Add more action
+            showSourceSelector = true
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: "plus.circle.fill")

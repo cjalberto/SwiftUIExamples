@@ -34,11 +34,9 @@ public struct BiomarkerChartData {
 // MARK: - Chart Style Structure
 public struct BiomarkerChartStyle {
     public let lineWidth: CGFloat
-    public let showEndDot: Bool
     public let endDotSize: CGFloat
+    public let showEndDot: Bool
     public let backgroundColor: Color
-    public let cornerRadius: CGFloat
-    public let horizontalPadding: CGFloat
     public let lineColor: Color?
     
     public init(
@@ -47,15 +45,12 @@ public struct BiomarkerChartStyle {
         endDotSize: CGFloat = 10,
         backgroundColor: Color = Color(red: 245/255, green: 245/255, blue: 245/255).opacity(0.5),
         cornerRadius: CGFloat = 8,
-        horizontalPadding: CGFloat = 5,
         lineColor: Color? = nil
     ) {
         self.lineWidth = lineWidth
         self.showEndDot = showEndDot
         self.endDotSize = endDotSize
         self.backgroundColor = backgroundColor
-        self.cornerRadius = cornerRadius
-        self.horizontalPadding = horizontalPadding
         self.lineColor = lineColor
     }
     
@@ -65,8 +60,6 @@ public struct BiomarkerChartStyle {
             showEndDot: showEndDot,
             endDotSize: endDotSize,
             backgroundColor: backgroundColor,
-            cornerRadius: cornerRadius,
-            horizontalPadding: horizontalPadding,
             lineColor: lineColor
         )
     }
@@ -78,8 +71,6 @@ public struct BiomarkerChartStyle {
         showEndDot: true,
         endDotSize: 8,
         backgroundColor: Color(red: 245/255, green: 245/255, blue: 245/255),
-        cornerRadius: 20,
-        horizontalPadding: 16,
         lineColor: nil
     )
 }
@@ -141,9 +132,9 @@ public struct BiomarkerMiniChartView: View {
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
             .chartYScale(domain: paddedDomain)
-            .padding(.horizontal, 5) // Offset chart line from edges
+            .padding(.horizontal, 10) // Offset chart line from edges
             .background(
-                RoundedRectangle(cornerRadius: style.cornerRadius)
+                RoundedRectangle(cornerRadius: geometry.size.height/2)
                     .fill(style.backgroundColor)
                     .padding(.vertical, geometry.size.height/4)
             )
