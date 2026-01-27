@@ -13,6 +13,7 @@ import SwiftUI
 public protocol BiomarkersViewModelProtocol: ObservableObject {
     var biomarkerGroups: [BiomarkerGroup] { get }
     var searchText: String { get set }
+    var selectedCategories: Set<BiomarkerCategory> { get set }
     var isLoading: Bool { get }
     var filteredGroups: [BiomarkerGroup] { get }
     
@@ -22,6 +23,7 @@ public protocol BiomarkersViewModelProtocol: ObservableObject {
 // MARK: - ViewModel
 @MainActor
 public final class BiomarkersViewModel: BiomarkersViewModelProtocol {
+    @Published public var selectedCategories: Set<BiomarkerCategory> = []
     @Published public var biomarkerGroups: [BiomarkerGroup] = []
     @Published public var searchText: String = ""
     @Published public var isLoading: Bool = false
@@ -29,14 +31,24 @@ public final class BiomarkersViewModel: BiomarkersViewModelProtocol {
     public init() {}
     
     public var filteredGroups: [BiomarkerGroup] {
-        guard !searchText.isEmpty else { return biomarkerGroups }
+        var groups = biomarkerGroups
         
-        return biomarkerGroups.compactMap { group in
-            let filtered = group.biomarkers.filter {
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-            return filtered.isEmpty ? nil : BiomarkerGroup(category: group.category, biomarkers: filtered)
+        // Filter by selected categories
+        if !selectedCategories.isEmpty {
+            groups = groups.filter { selectedCategories.contains($0.category) }
         }
+        
+        // Filter by search text
+        if !searchText.isEmpty {
+            groups = groups.compactMap { group in
+                let filtered = group.biomarkers.filter {
+                    $0.name.localizedCaseInsensitiveContains(searchText)
+                }
+                return filtered.isEmpty ? nil : BiomarkerGroup(category: group.category, biomarkers: filtered)
+            }
+        }
+        
+        return groups
     }
     
     public func loadBiomarkers() async {
@@ -266,6 +278,7 @@ public final class BiomarkersViewModel: BiomarkersViewModelProtocol {
 // MARK: - Mock ViewModel for Previews
 @MainActor
 public final class MockBiomarkersViewModel: BiomarkersViewModelProtocol {
+    @Published public var selectedCategories: Set<BiomarkerCategory> = []
     @Published public var biomarkerGroups: [BiomarkerGroup] = []
     @Published public var searchText: String = ""
     @Published public var isLoading: Bool = false
@@ -277,13 +290,24 @@ public final class MockBiomarkersViewModel: BiomarkersViewModelProtocol {
     }
     
     public var filteredGroups: [BiomarkerGroup] {
-        guard !searchText.isEmpty else { return biomarkerGroups }
-        return biomarkerGroups.compactMap { group in
-            let filtered = group.biomarkers.filter {
-                $0.name.localizedCaseInsensitiveContains(searchText)
-            }
-            return filtered.isEmpty ? nil : BiomarkerGroup(category: group.category, biomarkers: filtered)
+        var groups = biomarkerGroups
+        
+        // Filter by selected categories
+        if !selectedCategories.isEmpty {
+            groups = groups.filter { selectedCategories.contains($0.category) }
         }
+        
+        // Filter by search text
+        if !searchText.isEmpty {
+            groups = groups.compactMap { group in
+                let filtered = group.biomarkers.filter {
+                    $0.name.localizedCaseInsensitiveContains(searchText)
+                }
+                return filtered.isEmpty ? nil : BiomarkerGroup(category: group.category, biomarkers: filtered)
+            }
+        }
+        
+        return groups
     }
     
     public func loadBiomarkers() async {

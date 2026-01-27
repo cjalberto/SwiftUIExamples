@@ -62,43 +62,7 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            if #available(iOS 26.0, *) {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image("icNavigationBack")
-                            .renderingMode(.template)
-                            .foregroundColor(accentColor)
-                            .frame(width: 30, height: 30)
-                            .contentShape(Rectangle())
-                    }
-                }.sharedBackgroundVisibility(.hidden)
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Biomarkers")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(accentColor)
-                }
-            }else {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image("icNavigationBack")
-                            .renderingMode(.template)
-                            .foregroundColor(accentColor)
-                            .frame(width: 30, height: 30)
-                            .contentShape(Rectangle())
-                    }
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Biomarkers")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(accentColor)
-                }
-            }
+            toolbarView
         }
         .padding(.horizontal, 20)
         
@@ -106,9 +70,12 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
             await viewModel.loadBiomarkers()
         }
         .sheet(isPresented: $showFiltersSheet) {
-            // Placeholder for future filters sheet
-            Text("Filters coming soon")
-                .presentationDetents([.medium])
+            BiomarkersFilterSheet(
+                selectedCategories: Binding(
+                    get: { viewModel.selectedCategories },
+                    set: { viewModel.selectedCategories = $0 }
+                )
+            )
         }
         .sheet(isPresented: $showSourceSelector) {
             SourceSelectorSheetView(
@@ -133,6 +100,48 @@ public struct BiomarkersView<ViewModel: BiomarkersViewModelProtocol>: View {
             .font(.system(size: 14, weight: .bold))
             .foregroundStyle(Color(red: 1.0 / 255.0, green: 132.0 / 255.0, blue: 64.0 / 255.0))
             .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+    @ToolbarContentBuilder
+    private var toolbarView: some ToolbarContent {
+        if #available(iOS 26.0, *) {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("icNavigationBack")
+                        .renderingMode(.template)
+                        .foregroundColor(accentColor)
+                        .frame(width: 30, height: 30)
+                        .contentShape(Rectangle())
+                }
+            }
+            .sharedBackgroundVisibility(.hidden)
+            
+            ToolbarItem(placement: .principal) {
+                Text("Biomarkers")
+                    .font(.system(size: 21, weight: .bold))
+                    .foregroundStyle(accentColor)
+            }
+        } else {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image("icNavigationBack")
+                        .renderingMode(.template)
+                        .foregroundColor(accentColor)
+                        .frame(width: 30, height: 30)
+                        .contentShape(Rectangle())
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text("Biomarkers")
+                    .font(.system(size: 21, weight: .bold))
+                    .foregroundStyle(accentColor)
+            }
+        }
     }
     
     private var addMoreButton: some View {
