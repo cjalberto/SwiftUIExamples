@@ -141,7 +141,7 @@ public struct BiomarkerMiniChartView: View {
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
             .chartYScale(domain: paddedDomain)
-            .padding(.horizontal, style.horizontalPadding)
+            .padding(.horizontal, 5) // Offset chart line from edges
             .background(
                 RoundedRectangle(cornerRadius: style.cornerRadius)
                     .fill(style.backgroundColor)
