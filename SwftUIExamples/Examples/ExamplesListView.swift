@@ -33,6 +33,7 @@ struct ExamplesListView: View {
                     ExampleRow(title: "Geometry Reader", icon: "aspectratio") { GeometryReaderScrollView() }
                     ExampleRow(title: "View Modifiers", icon: "wand.and.stars") { ModifierView() }
                     ExampleRow(title: "Shimmer Effect", icon: "sparkles") { ShimmerExampleView() }
+                    ExampleRow(title: "Animated VStack", icon: "arrow.up.to.line") { AnimatedVStackExampleView() }
                 }
 
                 Section("State Management") {
