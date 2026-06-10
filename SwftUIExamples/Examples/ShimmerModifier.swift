@@ -13,24 +13,19 @@ struct ShimmerModifier: ViewModifier {
 
     var isActive: Bool
     var duration: Double
-    // Grados de inclinación de la barra desde la vertical.
-    // 0 = barra vertical recta, positivo = la parte superior se inclina a la derecha.
+    var delay: Double
     var angle: Double
 
     @State private var phase: CGFloat = -1
+    @State private var task: Task<Void, Never>? = nil
 
     func body(content: Content) -> some View {
-        // Calcular startPoint/endPoint en función del ángulo.
-        // La fórmula garantiza que la barra siempre barre de izquierda a derecha
-        // sin importar la inclinación, y que el gradiente cubra toda la vista.
-        // Clamp: más allá de ±80° cosA ≈ 0 y el eje horizontal del sweep desaparece.
         let safeAngle = max(-80, min(80, angle))
         let rad  = CGFloat(safeAngle) * .pi / 180
         let cosA = cos(rad)
         let sinA = sin(rad)
-        // "span" es la longitud mínima del vector gradiente para cubrir el cuadro unitario.
         let span   = abs(cosA) + abs(sinA)
-        let center = phase + 0.5   // centro de la barra (va de -0.5 a 1.5)
+        let center = phase + 0.5
 
         let start = UnitPoint(x: center - span * cosA / 2,
                               y: 0.5    - span * sinA / 2)
@@ -52,15 +47,50 @@ struct ShimmerModifier: ViewModifier {
                     startPoint: start,
                     endPoint:   end
                 )
-                // Recortar el overlay al shape exacto del contenido.
                 .mask(content)
             )
             .onAppear {
                 guard isActive else { return }
-                withAnimation(.linear(duration: duration).repeatForever(autoreverses: false)) {
+                startLoop()
+            }
+            .onDisappear {
+                cancelLoop()
+            }
+            .onChange(of: duration) { startLoop() }
+            .onChange(of: delay)    { startLoop() }
+            .onChange(of: isActive) { isActive ? startLoop() : cancelLoop() }
+    }
+
+    // MARK: - Loop
+
+    private func startLoop() {
+        cancelLoop()
+        task = Task { @MainActor in
+            while !Task.isCancelled {
+                // Snap al inicio sin animación
+                snap(to: -1)
+
+                // Una pasada de izquierda a derecha
+                withAnimation(.linear(duration: duration)) {
                     phase = 1
                 }
+
+                // Esperar a que termine la pasada + el delay configurado
+                try? await Task.sleep(for: .seconds(duration + delay))
             }
+        }
+    }
+
+    private func cancelLoop() {
+        task?.cancel()
+        task = nil
+        snap(to: -1)
+    }
+
+    private func snap(to value: CGFloat) {
+        var t = Transaction()
+        t.disablesAnimations = true
+        withTransaction(t) { phase = value }
     }
 }
 
@@ -70,9 +100,15 @@ extension View {
     /// Aplica un barrido de brillo de izquierda a derecha sobre cualquier vista.
     /// - Parameters:
     ///   - isActive:  `false` para desactivar (p.ej. cuando los datos cargan).
-    ///   - duration:  Segundos de un barrido completo. Default `1.5`.
-    ///   - angle:     Inclinación de la barra en grados desde la vertical (máx recomendado ±30°). Default `0`.
-    func shimmering(isActive: Bool = true, duration: Double = 1.5, angle: Double = 0) -> some View {
-        modifier(ShimmerModifier(isActive: isActive, duration: duration, angle: angle))
+    ///   - duration:  Duración de una pasada en segundos. Default `1.5`.
+    ///   - delay:     Pausa entre pasadas en segundos. Default `0`.
+    ///   - angle:     Inclinación de la barra desde la vertical, en grados (máx ±80°). Default `0`.
+    func shimmering(
+        isActive: Bool = true,
+        duration: Double = 1.5,
+        delay: Double = 0,
+        angle: Double = 0
+    ) -> some View {
+        modifier(ShimmerModifier(isActive: isActive, duration: duration, delay: delay, angle: angle))
     }
 }
