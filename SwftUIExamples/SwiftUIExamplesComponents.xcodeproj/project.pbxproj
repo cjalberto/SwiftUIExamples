@@ -38,6 +38,8 @@
 		45C8B3532B0994610065BF01 /* SwipeActionsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C8B3522B0994610065BF01 /* SwipeActionsLists.swift */; };
 		45C8B3552B099B3E0065BF01 /* GeometryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C8B3542B099B3E0065BF01 /* GeometryReader.swift */; };
 		45C8B3572B1BFA830065BF01 /* ModifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C8B3562B1BFA830065BF01 /* ModifierView.swift */; };
+		BB0011012B1BFA830065BF01 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0011002B1BFA830065BF01 /* ShimmerModifier.swift */; };
+		BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		45C8B3522B0994610065BF01 /* SwipeActionsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeActionsLists.swift; sourceTree = "<group>"; };
 		45C8B3542B099B3E0065BF01 /* GeometryReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryReader.swift; sourceTree = "<group>"; };
 		45C8B3562B1BFA830065BF01 /* ModifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierView.swift; sourceTree = "<group>"; };
+		BB0011002B1BFA830065BF01 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
+		BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerExampleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				45C8B3522B0994610065BF01 /* SwipeActionsLists.swift */,
 				45C8B3502B0932960065BF01 /* SceneStorage.swift */,
 				45C8B3562B1BFA830065BF01 /* ModifierView.swift */,
+				BB0011002B1BFA830065BF01 /* ShimmerModifier.swift */,
+				BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */,
 				45C8B34E2B07B2430065BF01 /* AppStorage.swift */,
 				4543D1AC2B0417EB007CF6C7 /* ObservedObject&StateObject.swift */,
 				45619AA92B030AF0000CC5C5 /* Gestures.swift */,
@@ -246,6 +252,8 @@
 				45619AA62B02CDEE000CC5C5 /* Alert.swift in Sources */,
 				459F6C352AF95FF000D22B88 /* Slider.swift in Sources */,
 				45C8B3572B1BFA830065BF01 /* ModifierView.swift in Sources */,
+				BB0011012B1BFA830065BF01 /* ShimmerModifier.swift in Sources */,
+				BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */,
 				00A136A585A24BC7A4C9833C /* ExamplesListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
