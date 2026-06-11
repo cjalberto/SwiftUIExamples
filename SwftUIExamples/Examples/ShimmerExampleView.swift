@@ -33,17 +33,19 @@ private struct ShimmerRectRow: View {
     let label: String
     let color: Color
 
-    @State private var angle:        Double = 20
-    @State private var duration:     Double = 1.0
-    @State private var delay:        Double = 0.0
-    @State private var width:        Double = 0.3
-    @State private var shimmerColor: Color  = .white
+    @State private var isActive:      Bool   = true
+    @State private var angle:         Double = 20
+    @State private var duration:      Double = 1.0
+    @State private var delay:         Double = 0.0
+    @State private var width:         Double = 0.3
+    @State private var shimmerColor:  Color  = .white
 
     // MARK: - Body
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             shimmerRect
+            toggleButton
             angleSlider
             durationSlider
             delaySlider
@@ -63,7 +65,19 @@ private struct ShimmerRectRow: View {
         RoundedRectangle(cornerRadius: 16)
             .fill(color)
             .frame(height: 90)
-            .shimmering(duration: duration, delay: delay, angle: angle, width: width, color: shimmerColor)
+            .shimmering(isActive: isActive, duration: duration, delay: delay, angle: angle, width: width, color: shimmerColor)
+    }
+
+    private var toggleButton: some View {
+        Button {
+            isActive.toggle()
+        } label: {
+            Label(isActive ? "Stop" : "Play", systemImage: isActive ? "stop.fill" : "play.fill")
+                .font(.caption.bold())
+                .foregroundStyle(isActive ? .red : .green)
+        }
+        .buttonStyle(.bordered)
+        .tint(isActive ? .red : .green)
     }
 
     private var angleSlider: some View {
