@@ -53,7 +53,10 @@ struct AnimatedStack<Data: RandomAccessCollection, Content: View>: View where Da
                 HStack(spacing: spacing) { itemViews(items: items) }
             }
         }
-        .onAppear { animate(items: items) }
+        .onAppear {
+            guard visibleIDs.isEmpty else { return }
+            animate(items: items)
+        }
         .onDisappear { completionTask?.cancel() }
     }
 
@@ -89,10 +92,12 @@ struct AnimatedStack<Data: RandomAccessCollection, Content: View>: View where Da
 
         guard let onComplete, !items.isEmpty else { return }
 
-        let maxDelay = items.indices
-            .map { entrance.itemDelay(for: $0, total: items.count, axis: axis) }
+        let totalDuration = items.indices
+            .map {
+                entrance.itemDelay(for: $0, total: items.count, axis: axis) +
+                entrance.animationDuration(for: $0, total: items.count)
+            }
             .max() ?? 0
-        let totalDuration = maxDelay + entrance.animationDuration
 
         completionTask = Task { @MainActor in
             try? await Task.sleep(for: .seconds(totalDuration))

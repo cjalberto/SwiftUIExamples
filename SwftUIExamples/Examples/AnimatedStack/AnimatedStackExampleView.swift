@@ -185,13 +185,20 @@ private enum EntranceOption: CaseIterable, Identifiable {
 private struct MixedEntrance: StackEntrance {
     var duration: Double
     var staggerDelay: Double
-    var animationDuration: Double { duration * 1.1 }
 
     func animation(for index: Int, total: Int) -> Animation {
         switch index % 3 {
         case 0: .spring(duration: duration, bounce: 0.4)
         case 1: .easeOut(duration: duration * 0.9)
         default: .spring(duration: duration * 1.1, bounce: 0.2)
+        }
+    }
+
+    func animationDuration(for index: Int, total: Int) -> Double {
+        switch index % 3 {
+        case 0: duration
+        case 1: duration * 0.9
+        default: duration * 1.1
         }
     }
 

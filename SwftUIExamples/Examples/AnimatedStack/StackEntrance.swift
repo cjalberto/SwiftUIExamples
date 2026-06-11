@@ -10,11 +10,13 @@ import SwiftUI
 // MARK: - Protocol
 
 protocol StackEntrance {
-    var animationDuration: Double { get }
     var staggerDelay: Double { get }
     /// Animation curve for item at `index`. Return the same value for all indices
     /// to use a uniform curve, or vary it per-item for fully custom behavior.
     func animation(for index: Int, total: Int) -> Animation
+    /// Duration of the animation for item at `index`. Needed so AnimatedStack can
+    /// compute exactly when the last animation finishes, even with per-item curves.
+    func animationDuration(for index: Int, total: Int) -> Double
     /// Starting offset for item at `index`. Use the X axis for horizontal slides,
     /// Y axis for vertical, or combine both for diagonal entrances.
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize
@@ -32,17 +34,16 @@ extension StackEntrance {
 // MARK: - TopDownEntrance
 
 struct TopDownEntrance: StackEntrance {
-    var animationDuration: Double
+    var duration: Double
     var staggerDelay: Double
 
     init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
-        self.animationDuration = duration
+        self.duration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation {
-        .easeOut(duration: animationDuration)
-    }
+    func animation(for index: Int, total: Int) -> Animation { .easeOut(duration: duration) }
+    func animationDuration(for index: Int, total: Int) -> Double { duration }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: 0, height: amount)
@@ -52,20 +53,19 @@ struct TopDownEntrance: StackEntrance {
 // MARK: - BottomUpEntrance
 
 struct BottomUpEntrance: StackEntrance {
-    var animationDuration: Double
+    var duration: Double
     var staggerDelay: Double
 
     init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
-        self.animationDuration = duration
+        self.duration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation {
-        .easeOut(duration: animationDuration)
-    }
+    func animation(for index: Int, total: Int) -> Animation { .easeOut(duration: duration) }
+    func animationDuration(for index: Int, total: Int) -> Double { duration }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
-        CGSize(width: 0, height: amount)
+        CGSize(width: 0, height: -amount)
     }
 
     func itemDelay(for index: Int, total: Int, axis: Axis) -> Double {
@@ -80,17 +80,16 @@ struct BottomUpEntrance: StackEntrance {
 // MARK: - LeadingEntrance
 
 struct LeadingEntrance: StackEntrance {
-    var animationDuration: Double
+    var duration: Double
     var staggerDelay: Double
 
     init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
-        self.animationDuration = duration
+        self.duration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation {
-        .easeOut(duration: animationDuration)
-    }
+    func animation(for index: Int, total: Int) -> Animation { .easeOut(duration: duration) }
+    func animationDuration(for index: Int, total: Int) -> Double { duration }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: -amount, height: 0)
@@ -100,17 +99,16 @@ struct LeadingEntrance: StackEntrance {
 // MARK: - TrailingEntrance
 
 struct TrailingEntrance: StackEntrance {
-    var animationDuration: Double
+    var duration: Double
     var staggerDelay: Double
 
     init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
-        self.animationDuration = duration
+        self.duration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation {
-        .easeOut(duration: animationDuration)
-    }
+    func animation(for index: Int, total: Int) -> Animation { .easeOut(duration: duration) }
+    func animationDuration(for index: Int, total: Int) -> Double { duration }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: amount, height: 0)
