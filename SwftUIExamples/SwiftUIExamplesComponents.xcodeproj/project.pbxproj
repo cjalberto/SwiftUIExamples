@@ -42,6 +42,7 @@
 		BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */; };
 		CC0011012B1BFA830065BF01 /* AnimatedVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */; };
 		CC0022012B1BFA830065BF01 /* AnimatedVStackExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */; };
+		CC0044012B1BFA830065BF01 /* StackEntrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0044002B1BFA830065BF01 /* StackEntrance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerExampleView.swift; sourceTree = "<group>"; };
 		CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedVStack.swift; sourceTree = "<group>"; };
 		CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedVStackExampleView.swift; sourceTree = "<group>"; };
+		CC0044002B1BFA830065BF01 /* StackEntrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEntrance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */,
+				CC0044002B1BFA830065BF01 /* StackEntrance.swift */,
 				CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */,
 			);
 			path = AnimatedVStack;
@@ -269,6 +272,7 @@
 				BB0011012B1BFA830065BF01 /* ShimmerModifier.swift in Sources */,
 				BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */,
 				CC0011012B1BFA830065BF01 /* AnimatedVStack.swift in Sources */,
+				CC0044012B1BFA830065BF01 /* StackEntrance.swift in Sources */,
 				CC0022012B1BFA830065BF01 /* AnimatedVStackExampleView.swift in Sources */,
 				00A136A585A24BC7A4C9833C /* ExamplesListView.swift in Sources */,
 			);

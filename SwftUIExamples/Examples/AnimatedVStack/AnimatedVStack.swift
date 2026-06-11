@@ -9,17 +9,13 @@ import SwiftUI
 
 // MARK: - AnimatedVStack
 
-/// A vertical stack that reveals items top-to-bottom with a chained animation:
-/// each item starts offset below its final position and slides up while fading in.
-/// The next item begins its animation only after the previous one finishes.
 struct AnimatedVStack<Data: RandomAccessCollection, Content: View>: View where Data.Element: Identifiable {
 
     // MARK: - Properties
 
     let data: Data
+    let entrance: any StackEntrance
     let spacing: CGFloat
-    let duration: Double
-    let staggerDelay: Double
     let slideOffset: CGFloat
     @ViewBuilder let content: (Data.Element) -> Content
 
@@ -29,16 +25,14 @@ struct AnimatedVStack<Data: RandomAccessCollection, Content: View>: View where D
 
     init(
         _ data: Data,
+        entrance: any StackEntrance = TopDownEntrance(),
         spacing: CGFloat = 8,
-        duration: Double = 0.45,
-        staggerDelay: Double = 0.45,
         slideOffset: CGFloat = 36,
         @ViewBuilder content: @escaping (Data.Element) -> Content
     ) {
         self.data = data
+        self.entrance = entrance
         self.spacing = spacing
-        self.duration = duration
-        self.staggerDelay = staggerDelay
         self.slideOffset = slideOffset
         self.content = content
     }
@@ -49,12 +43,13 @@ struct AnimatedVStack<Data: RandomAccessCollection, Content: View>: View where D
         let items = Array(data)
         VStack(spacing: spacing) {
             ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+                let isVisible = visibleIDs.contains(item.id)
                 content(item)
-                    .opacity(visibleIDs.contains(item.id) ? 1 : 0)
-                    .offset(y: visibleIDs.contains(item.id) ? 0 : slideOffset)
+                    .opacity(isVisible ? 1 : 0)
+                    .offset(isVisible ? .zero : entrance.initialOffset(for: index, total: items.count, amount: slideOffset))
                     .animation(
-                        .easeOut(duration: duration)
-                        .delay(delay(for: index, total: items.count)),
+                        entrance.animation(for: index, total: items.count)
+                            .delay(entrance.itemDelay(for: index, total: items.count)),
                         value: visibleIDs
                     )
             }
@@ -63,13 +58,6 @@ struct AnimatedVStack<Data: RandomAccessCollection, Content: View>: View where D
     }
 
     // MARK: - Helpers
-
-    /// Item 0 starts immediately; each subsequent item waits for the previous to finish.
-    /// With staggerDelay == duration (default) the chain is tight: item N+1 starts exactly
-    /// when item N arrives. Reduce staggerDelay for overlap; increase for a pause between items.
-    private func delay(for index: Int, total: Int) -> Double {
-        Double(index) * staggerDelay
-    }
 
     private func animate(items: [Data.Element]) {
         visibleIDs.removeAll()
