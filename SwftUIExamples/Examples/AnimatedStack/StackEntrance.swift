@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - Protocol
 
 protocol StackEntrance {
+    var animationDuration: Double { get }
     var staggerDelay: Double { get }
     /// Animation curve for item at `index`. Return the same value for all indices
     /// to use a uniform curve, or vary it per-item for fully custom behavior.
@@ -17,11 +18,13 @@ protocol StackEntrance {
     /// Starting offset for item at `index`. Use the X axis for horizontal slides,
     /// Y axis for vertical, or combine both for diagonal entrances.
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize
-    func itemDelay(for index: Int, total: Int) -> Double
+    /// Delay before item at `index` starts animating. Receives `axis` so entrances
+    /// can adapt their reveal order depending on layout direction.
+    func itemDelay(for index: Int, total: Int, axis: Axis) -> Double
 }
 
 extension StackEntrance {
-    func itemDelay(for index: Int, total: Int) -> Double {
+    func itemDelay(for index: Int, total: Int, axis: Axis) -> Double {
         Double(index) * staggerDelay
     }
 }
@@ -29,15 +32,17 @@ extension StackEntrance {
 // MARK: - TopDownEntrance
 
 struct TopDownEntrance: StackEntrance {
-    var animation: Animation
+    var animationDuration: Double
     var staggerDelay: Double
 
-    init(animation: Animation = .easeOut(duration: 0.45), staggerDelay: Double = 0.45) {
-        self.animation = animation
+    init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
+        self.animationDuration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation { animation }
+    func animation(for index: Int, total: Int) -> Animation {
+        .easeOut(duration: animationDuration)
+    }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: 0, height: amount)
@@ -47,37 +52,45 @@ struct TopDownEntrance: StackEntrance {
 // MARK: - BottomUpEntrance
 
 struct BottomUpEntrance: StackEntrance {
-    var animation: Animation
+    var animationDuration: Double
     var staggerDelay: Double
 
-    init(animation: Animation = .easeOut(duration: 0.45), staggerDelay: Double = 0.45) {
-        self.animation = animation
+    init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
+        self.animationDuration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation { animation }
+    func animation(for index: Int, total: Int) -> Animation {
+        .easeOut(duration: animationDuration)
+    }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: 0, height: amount)
     }
 
-    func itemDelay(for index: Int, total: Int) -> Double {
-        Double(total - 1 - index) * staggerDelay
+    func itemDelay(for index: Int, total: Int, axis: Axis) -> Double {
+        switch axis {
+        case .vertical:   return Double(total - 1 - index) * staggerDelay
+        case .horizontal: return Double(index) * staggerDelay
+        @unknown default: return Double(index) * staggerDelay
+        }
     }
 }
 
 // MARK: - LeadingEntrance
 
 struct LeadingEntrance: StackEntrance {
-    var animation: Animation
+    var animationDuration: Double
     var staggerDelay: Double
 
-    init(animation: Animation = .easeOut(duration: 0.45), staggerDelay: Double = 0.45) {
-        self.animation = animation
+    init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
+        self.animationDuration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation { animation }
+    func animation(for index: Int, total: Int) -> Animation {
+        .easeOut(duration: animationDuration)
+    }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: -amount, height: 0)
@@ -87,15 +100,17 @@ struct LeadingEntrance: StackEntrance {
 // MARK: - TrailingEntrance
 
 struct TrailingEntrance: StackEntrance {
-    var animation: Animation
+    var animationDuration: Double
     var staggerDelay: Double
 
-    init(animation: Animation = .easeOut(duration: 0.45), staggerDelay: Double = 0.45) {
-        self.animation = animation
+    init(duration: Double = 0.45, staggerDelay: Double = 0.45) {
+        self.animationDuration = duration
         self.staggerDelay = staggerDelay
     }
 
-    func animation(for index: Int, total: Int) -> Animation { animation }
+    func animation(for index: Int, total: Int) -> Animation {
+        .easeOut(duration: animationDuration)
+    }
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         CGSize(width: amount, height: 0)
@@ -106,28 +121,28 @@ struct TrailingEntrance: StackEntrance {
 
 extension StackEntrance where Self == TopDownEntrance {
     static var topDown: TopDownEntrance { TopDownEntrance() }
-    static func topDown(animation: Animation, staggerDelay: Double = 0.45) -> TopDownEntrance {
-        TopDownEntrance(animation: animation, staggerDelay: staggerDelay)
+    static func topDown(duration: Double, staggerDelay: Double = 0.45) -> TopDownEntrance {
+        TopDownEntrance(duration: duration, staggerDelay: staggerDelay)
     }
 }
 
 extension StackEntrance where Self == BottomUpEntrance {
     static var bottomUp: BottomUpEntrance { BottomUpEntrance() }
-    static func bottomUp(animation: Animation, staggerDelay: Double = 0.45) -> BottomUpEntrance {
-        BottomUpEntrance(animation: animation, staggerDelay: staggerDelay)
+    static func bottomUp(duration: Double, staggerDelay: Double = 0.45) -> BottomUpEntrance {
+        BottomUpEntrance(duration: duration, staggerDelay: staggerDelay)
     }
 }
 
 extension StackEntrance where Self == LeadingEntrance {
     static var leading: LeadingEntrance { LeadingEntrance() }
-    static func leading(animation: Animation, staggerDelay: Double = 0.45) -> LeadingEntrance {
-        LeadingEntrance(animation: animation, staggerDelay: staggerDelay)
+    static func leading(duration: Double, staggerDelay: Double = 0.45) -> LeadingEntrance {
+        LeadingEntrance(duration: duration, staggerDelay: staggerDelay)
     }
 }
 
 extension StackEntrance where Self == TrailingEntrance {
     static var trailing: TrailingEntrance { TrailingEntrance() }
-    static func trailing(animation: Animation, staggerDelay: Double = 0.45) -> TrailingEntrance {
-        TrailingEntrance(animation: animation, staggerDelay: staggerDelay)
+    static func trailing(duration: Double, staggerDelay: Double = 0.45) -> TrailingEntrance {
+        TrailingEntrance(duration: duration, staggerDelay: staggerDelay)
     }
 }

@@ -40,8 +40,8 @@
 		45C8B3572B1BFA830065BF01 /* ModifierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C8B3562B1BFA830065BF01 /* ModifierView.swift */; };
 		BB0011012B1BFA830065BF01 /* ShimmerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0011002B1BFA830065BF01 /* ShimmerModifier.swift */; };
 		BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */; };
-		CC0011012B1BFA830065BF01 /* AnimatedVStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */; };
-		CC0022012B1BFA830065BF01 /* AnimatedVStackExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */; };
+		CC0011012B1BFA830065BF01 /* AnimatedStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0011002B1BFA830065BF01 /* AnimatedStack.swift */; };
+		CC0022012B1BFA830065BF01 /* AnimatedStackExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0022002B1BFA830065BF01 /* AnimatedStackExampleView.swift */; };
 		CC0044012B1BFA830065BF01 /* StackEntrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0044002B1BFA830065BF01 /* StackEntrance.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,8 +80,8 @@
 		45C8B3562B1BFA830065BF01 /* ModifierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifierView.swift; sourceTree = "<group>"; };
 		BB0011002B1BFA830065BF01 /* ShimmerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerModifier.swift; sourceTree = "<group>"; };
 		BB0022002B1BFA830065BF01 /* ShimmerExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerExampleView.swift; sourceTree = "<group>"; };
-		CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedVStack.swift; sourceTree = "<group>"; };
-		CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedVStackExampleView.swift; sourceTree = "<group>"; };
+		CC0011002B1BFA830065BF01 /* AnimatedStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedStack.swift; sourceTree = "<group>"; };
+		CC0022002B1BFA830065BF01 /* AnimatedStackExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedStackExampleView.swift; sourceTree = "<group>"; };
 		CC0044002B1BFA830065BF01 /* StackEntrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEntrance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,20 +112,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CC0033002B1BFA830065BF01 /* AnimatedVStack */ = {
+		CC0033002B1BFA830065BF01 /* AnimatedStack */ = {
 			isa = PBXGroup;
 			children = (
-				CC0011002B1BFA830065BF01 /* AnimatedVStack.swift */,
+				CC0011002B1BFA830065BF01 /* AnimatedStack.swift */,
 				CC0044002B1BFA830065BF01 /* StackEntrance.swift */,
-				CC0022002B1BFA830065BF01 /* AnimatedVStackExampleView.swift */,
+				CC0022002B1BFA830065BF01 /* AnimatedStackExampleView.swift */,
 			);
-			path = AnimatedVStack;
+			path = AnimatedStack;
 			sourceTree = "<group>";
 		};
 		453BD50D2AED7AB80051BD21 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				CC0033002B1BFA830065BF01 /* AnimatedVStack */,
+				CC0033002B1BFA830065BF01 /* AnimatedStack */,
 				45C8B3542B099B3E0065BF01 /* GeometryReader.swift */,
 				45C8B3522B0994610065BF01 /* SwipeActionsLists.swift */,
 				45C8B3502B0932960065BF01 /* SceneStorage.swift */,
@@ -271,9 +271,9 @@
 				45C8B3572B1BFA830065BF01 /* ModifierView.swift in Sources */,
 				BB0011012B1BFA830065BF01 /* ShimmerModifier.swift in Sources */,
 				BB0022012B1BFA830065BF01 /* ShimmerExampleView.swift in Sources */,
-				CC0011012B1BFA830065BF01 /* AnimatedVStack.swift in Sources */,
+				CC0011012B1BFA830065BF01 /* AnimatedStack.swift in Sources */,
 				CC0044012B1BFA830065BF01 /* StackEntrance.swift in Sources */,
-				CC0022012B1BFA830065BF01 /* AnimatedVStackExampleView.swift in Sources */,
+				CC0022012B1BFA830065BF01 /* AnimatedStackExampleView.swift in Sources */,
 				00A136A585A24BC7A4C9833C /* ExamplesListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

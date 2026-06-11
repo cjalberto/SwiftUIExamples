@@ -1,5 +1,5 @@
 //
-//  AnimatedVStackExampleView.swift
+//  AnimatedStackExampleView.swift
 //  SwiftUIExamplesComponents
 //
 //  Created by Carlos Jaramillo on 10/6/26.
@@ -7,17 +7,20 @@
 
 import SwiftUI
 
-// MARK: - AnimatedVStackExampleView
+// MARK: - AnimatedStackExampleView
 
-struct AnimatedVStackExampleView: View {
+struct AnimatedStackExampleView: View {
 
     // MARK: - Properties
 
+    let axis: Axis
+
     @State private var stackID = UUID()
-    @State private var selectedOption: EntranceOption = .topDown
+    @State private var selectedOption: EntranceOption
     @State private var duration: Double = 0.45
     @State private var staggerDelay: Double = 0.45
     @State private var slideOffset: Double = 36
+    @State private var animationCompleted = false
 
     private let cards: [DemoCard] = [
         DemoCard(color: .blue,   title: "First"),
@@ -27,39 +30,67 @@ struct AnimatedVStackExampleView: View {
         DemoCard(color: .red,    title: "Fifth"),
     ]
 
+    init(axis: Axis) {
+        self.axis = axis
+        _selectedOption = State(initialValue: axis == .vertical ? .topDown : .leading)
+    }
+
     // MARK: - Body
 
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
                 animatedStack
+                completionBadge
                 controls
             }
             .padding()
         }
-        .navigationTitle("Animated VStack")
-        .onChange(of: selectedOption) { _, _ in stackID = UUID() }
+        .navigationTitle(axis == .vertical ? "Animated VStack" : "Animated HStack")
+        .onChange(of: selectedOption) { _, _ in replay() }
     }
 
     // MARK: - Subviews
 
+    @ViewBuilder
     private var animatedStack: some View {
-        AnimatedVStack(
+        let stack = AnimatedStack(
             cards,
+            axis: axis,
             entrance: selectedOption.makeEntrance(duration: duration, staggerDelay: staggerDelay),
             slideOffset: CGFloat(slideOffset)
         ) { card in
             RoundedRectangle(cornerRadius: 14)
                 .fill(card.color)
-                .frame(maxWidth: .infinity)
-                .frame(height: 64)
+                .frame(
+                    width:  axis == .horizontal ? 100 : nil,
+                    height: axis == .vertical   ? 64  : 100
+                )
+                .frame(maxWidth: axis == .vertical ? .infinity : nil)
                 .overlay(
                     Text(card.title)
                         .font(.headline)
                         .foregroundStyle(.white)
                 )
         }
+        .onAnimationComplete { animationCompleted = true }
         .id(stackID)
+
+        if axis == .horizontal {
+            ScrollView(.horizontal, showsIndicators: false) {
+                stack.padding(.horizontal)
+            }
+        } else {
+            stack
+        }
+    }
+
+    private var completionBadge: some View {
+        Label("Animation complete", systemImage: "checkmark.circle.fill")
+            .font(.subheadline.bold())
+            .foregroundStyle(.green)
+            .opacity(animationCompleted ? 1 : 0)
+            .animation(.easeIn(duration: 0.2), value: animationCompleted)
     }
 
     private var controls: some View {
@@ -86,12 +117,13 @@ struct AnimatedVStackExampleView: View {
                 )
 
                 Button {
-                    stackID = UUID()
+                    replay()
                 } label: {
                     Label("Replay", systemImage: "arrow.counterclockwise")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .disabled(!animationCompleted)
             }
         } label: {
             Label("Controls", systemImage: "slider.horizontal.3")
@@ -113,6 +145,11 @@ struct AnimatedVStackExampleView: View {
             Slider(value: value, in: range, step: step)
         }
     }
+
+    private func replay() {
+        animationCompleted = false
+        stackID = UUID()
+    }
 }
 
 // MARK: - EntranceOption
@@ -133,12 +170,11 @@ private enum EntranceOption: CaseIterable, Identifiable {
     }
 
     func makeEntrance(duration: Double, staggerDelay: Double) -> any StackEntrance {
-        let anim = Animation.easeOut(duration: duration)
         switch self {
-        case .topDown:  return TopDownEntrance(animation: anim, staggerDelay: staggerDelay)
-        case .bottomUp: return BottomUpEntrance(animation: anim, staggerDelay: staggerDelay)
-        case .leading:  return LeadingEntrance(animation: anim, staggerDelay: staggerDelay)
-        case .trailing: return TrailingEntrance(animation: anim, staggerDelay: staggerDelay)
+        case .topDown:  return TopDownEntrance(duration: duration, staggerDelay: staggerDelay)
+        case .bottomUp: return BottomUpEntrance(duration: duration, staggerDelay: staggerDelay)
+        case .leading:  return LeadingEntrance(duration: duration, staggerDelay: staggerDelay)
+        case .trailing: return TrailingEntrance(duration: duration, staggerDelay: staggerDelay)
         case .mixed:    return MixedEntrance(duration: duration, staggerDelay: staggerDelay)
         }
     }
@@ -149,6 +185,7 @@ private enum EntranceOption: CaseIterable, Identifiable {
 private struct MixedEntrance: StackEntrance {
     var duration: Double
     var staggerDelay: Double
+    var animationDuration: Double { duration * 1.1 }
 
     func animation(for index: Int, total: Int) -> Animation {
         switch index % 3 {
@@ -160,9 +197,9 @@ private struct MixedEntrance: StackEntrance {
 
     func initialOffset(for index: Int, total: Int, amount: CGFloat) -> CGSize {
         switch index % 3 {
-        case 0: CGSize(width: 0, height: -amount)  // desde arriba
-        case 1: CGSize(width: 0, height: amount)   // desde abajo
-        default: CGSize(width: -amount, height: 0) // desde la izquierda
+        case 0: CGSize(width: 0, height: -amount)
+        case 1: CGSize(width: 0, height: amount)
+        default: CGSize(width: -amount, height: 0)
         }
     }
 }
@@ -177,8 +214,14 @@ private struct DemoCard: Identifiable {
 
 // MARK: - Preview
 
-#Preview {
+#Preview("Vertical") {
     NavigationStack {
-        AnimatedVStackExampleView()
+        AnimatedStackExampleView(axis: .vertical)
+    }
+}
+
+#Preview("Horizontal") {
+    NavigationStack {
+        AnimatedStackExampleView(axis: .horizontal)
     }
 }
